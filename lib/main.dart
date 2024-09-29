@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scheme/splash%20screen.dart';
 
 import 'chatbot.dart';
@@ -147,9 +148,9 @@ class HomeScreen extends StatelessWidget {
                 ));
               },
               child: Image.asset(
-                'assets/user-folder.png', // Replace with your image path
-                width: 40,
-                height: 40,
+                'assets/chatbot.png', // Replace with your Lottie animation path
+                width: 60,
+                height: 60,
               ),
             ),
           ),
