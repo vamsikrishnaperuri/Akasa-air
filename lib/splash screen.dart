@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart'; // Import this for kIsWeb
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,6 +11,7 @@ class Splash extends StatefulWidget {
 }
 
 class _State extends State<Splash> {
+  @override
   void initState() {
     super.initState();
     startTimer();
@@ -27,20 +29,31 @@ class _State extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              Colors.amber,
-              Color(0xFFFF6600),
-            ],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+      body: kIsWeb ? webView() : mobileView(),
+    );
+  }
+
+  Widget mobileView() {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("lib/images/mobilesplash.jpeg"), // Replace with your image path
+          fit: BoxFit.cover,
         ),
-        child: content(),
       ),
+      child: content(),
+    );
+  }
+
+  Widget webView() {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("lib/images/splash_web.jpg"), // Replace with your image path
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: content(),
     );
   }
 

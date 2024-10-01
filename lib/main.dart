@@ -360,25 +360,26 @@ class ProfilePage extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        height: 100, // Set a fixed height for the profile option
         decoration: BoxDecoration(
           color: Colors.orange.shade100,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.shade200,
-              blurRadius: 10,
-              offset: Offset(0, 5),
+              blurRadius: 5, // Reduced blur radius for a subtle shadow
+              offset: Offset(0, 2), // Reduced offset for the shadow
             ),
           ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.orange, size: 40),
-            SizedBox(height: 10),
+            Icon(icon, color: Colors.orange, size: 30), // Reduced icon size
+            SizedBox(height: 8), // Reduced space between icon and text
             Text(
               label,
-              style: TextStyle(fontSize: 16, color: Colors.black87),
+              style: TextStyle(fontSize: 14, color: Colors.black87), // Reduced text size
             ),
           ],
         ),
@@ -388,14 +389,15 @@ class ProfilePage extends StatelessWidget {
 
   Widget socialMediaIcon(IconData icon, Color color) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(8), // Adjusted padding for a smaller circle
       decoration: BoxDecoration(
         color: Colors.orange.shade100,
         shape: BoxShape.circle,
       ),
-      child: Icon(icon, color: color, size: 30),
+      child: Icon(icon, color: color, size: 24), // Reduced icon size for social media
     );
   }
+
 }
 
 
