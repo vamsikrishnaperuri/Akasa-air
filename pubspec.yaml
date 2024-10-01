@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   lottie: ^2.7.0
   intl: ^0.17.0
+  webview_flutter: ^4.2.1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scheme/splash%20screen.dart';
+import 'EditProfile.dart';
 import 'chatbot.dart';  // Make sure to define this file properly
 import 'userprofile.dart';  // Make sure to define this file properly
 
@@ -198,14 +199,10 @@ class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Booking Page Content',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
+  Widget build(BuildContext context){
+    return Scaffold();
   }
+
 }
 
 // Profile Page
@@ -213,52 +210,136 @@ class BookingPage extends StatelessWidget {
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
 
-  final Map<String, dynamic> userData = {
-    "name": "Harsha Bellala",
-    "date_of_birth": "2004-02-04",
-    "home_city": "Visakhapatnam",
-    "home_airport_code": "VTZ",
-    "most_preferred_class": "Economy",
-    "visited_cities": [
-      {"city_code": "VTZ", "city_name": "Visakhapatnam"},
-      {"city_code": "BLR", "city_name": "Bengaluru"},
-      {"city_code": "DEL", "city_name": "Delhi"}
-    ],
-    "preferred_seats": ["4F", "5F", "3E"],
-    "preferred_departure_time": {"start": "10:00 AM", "end": "7:00 PM"},
-    "food_preferences": ["Coffee + Sandwich", "Tea + Snack Bag"],
-    "joined_akasa": "2024-05"
-  };
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F0F0), // Light Grey background
-      body: SingleChildScrollView( // Make the body scrollable
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 60, // Adds height to AppBar for better alignment
+        automaticallyImplyLeading: false, // Remove default back button
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0, top: 8.0),
+            child: GestureDetector(
+              onTap: () {
+                // Add your action for profile click (like opening a profile edit screen)
+              },
+              child: CircleAvatar(
+                radius: 25,
+                backgroundImage: const AssetImage('lib/images/user_profilelogog.png'), // Profile image
+                backgroundColor: Colors.orange.shade100, // Fallback color
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeader('Personal Info'),
-              _buildUserInfoRow('Name', userData['name']),
-              _buildUserInfoRow('Date of Birth', userData['date_of_birth']),
-              _buildUserInfoRow('Home City', userData['home_city']),
-              _buildUserInfoRow('Home Airport Code', userData['home_airport_code']),
-              const SizedBox(height: 16),
-              _buildHeader('Preferences'),
-              _buildUserInfoRow('Most Preferred Class', userData['most_preferred_class']),
-              _buildUserInfoRow(
-                  'Preferred Departure Time',
-                  '${userData['preferred_departure_time']['start']} - ${userData['preferred_departure_time']['end']}'
+              SizedBox(height: 10),
+              Text(
+                'Signed up since May, 14',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
               ),
-              const SizedBox(height: 16),
-              _buildChipSection('Preferred Seats', userData['preferred_seats']),
-              _buildChipSection('Food Preferences', userData['food_preferences']),
-              _buildChipSection('Visited Cities', _getVisitedCities(userData['visited_cities'])),
-              const SizedBox(height: 16),
-              _buildHeader('Travel History'),
-              _buildUserInfoRow('Joined Akasa', userData['joined_akasa']),
+              SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  customTextButton('Change password'),
+
+                  // Navigate to the Edit Profile Page when clicked
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to EditProfilePage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditProfilePage()),
+                      );
+                    },
+                    child: const Text(
+                      'Edit my profile',
+                      style: TextStyle(color: Colors.purple, fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  profileOption(Icons.airplane_ticket, 'My bookings'),
+                  profileOption(Icons.person, 'Edit my profile'),
+                  profileOption(Icons.tune, 'My preferences'),
+                  profileOption(Icons.group, 'Saved travellers'),
+                  profileOption(Icons.business, 'Business profile'),
+                  profileOption(Icons.logout, 'Logout'),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              Divider(thickness: 1, color: Colors.grey.shade300),
+              SizedBox(height: 10),
+              Text(
+                'Follow us on social media',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  socialMediaIcon(Icons.facebook, Colors.orange),
+                  socialMediaIcon(Icons.linked_camera, Colors.orange),
+                  socialMediaIcon(Icons.video_collection, Colors.orange),
+                  socialMediaIcon(Icons.image, Colors.orange),
+                  socialMediaIcon(Icons.business, Colors.orange),
+                ],
+              ),
+              SizedBox(height: 30),
+
+              Divider(thickness: 1, color: Colors.grey.shade300),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.call, color: Colors.black),
+                    label: Text('Call us', style: TextStyle(color: Colors.black)),
+                  ),
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.help, color: Colors.black),
+                    label: Text('FAQs', style: TextStyle(color: Colors.black)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
             ],
           ),
         ),
@@ -266,86 +347,52 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+  Widget customTextButton(String text) {
+    return TextButton(
+      onPressed: () {},
       child: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-          color: Color(0xFF000000), // Black/Dark Grey for headers
-        ),
+        text,
+        style: TextStyle(color: Colors.purple, fontSize: 16),
       ),
     );
   }
 
-  Widget _buildUserInfoRow(String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Color(0xFF666666), // Grey for subtext
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+  Widget profileOption(IconData icon, String label) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.orange.shade100,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            blurRadius: 10,
+            offset: Offset(0, 5),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(
-                color: Color(0xFF000000), // Black/Dark Grey for primary text
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-              overflow: TextOverflow.ellipsis, // Handle overflow gracefully
-            ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: Colors.orange, size: 40),
+          SizedBox(height: 10),
+          Text(
+            label,
+            style: TextStyle(fontSize: 16, color: Colors.black87),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildChipSection(String title, List<String> items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Color(0xFF000000), // Black/Dark Grey for headers
-            ),
-          ),
-        ),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 4.0,
-          children: items.map((item) {
-            return Chip(
-              label: Text(
-                item,
-                style: const TextStyle(color: Color(0xFFFFFFFF)), // White text color
-              ),
-              backgroundColor: const Color(0xFFFF6600), // Orange for chips
-            );
-          }).toList(),
-        ),
-      ],
+  Widget socialMediaIcon(IconData icon, Color color) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.orange.shade100,
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, color: color, size: 30),
     );
-  }
-
-  List<String> _getVisitedCities(List<Map<String, dynamic>> visitedCities) {
-    return visitedCities.map((city) => city['city_name'].toString()).toList();
   }
 }
 
