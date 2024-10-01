@@ -26,33 +26,61 @@ class _State extends State<SignupScreen> {
   final TextEditingController emaildcontroller = new  TextEditingController();
   bool isLoading = false;
 
-  void signupUser() async{
-    // set is loading to true.
-    setState(() {
-      isLoading = true;
-    });
-    // signup user using our authmethod
-    String res = await AuthServices().signupUser(
-        name: usernamecontroller.text,
-        email: emaildcontroller.text,
-        password: passwordcontroller.text
-    );
-    print("<<<-----------------------------------------------: $res--------------------------------------------->>>");
-    if(res == "Successfully executed"){
-      setState(() {
-        isLoading = false;
-      });
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
-    }else{
-      setState(() {
-        isLoading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.orangeAccent,
-          content: Text(
-            "Account Already exists",
-            style: TextStyle(fontSize: 18.0),
-          )));
+  // void signupUser() async{
+  //   // set is loading to true.
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   // signup user using our authmethod
+  //   String res = await AuthServices().signupUser(
+  //       name: usernamecontroller.text,
+  //       email: emaildcontroller.text,
+  //       password: passwordcontroller.text
+  //   );
+  //   print("<<<-----------------------------------------------: $res--------------------------------------------->>>");
+  //   if(res == "Successfully executed"){
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
+  //   }else{
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         backgroundColor: Colors.orangeAccent,
+  //         content: Text(
+  //           "Account Already exists",
+  //           style: TextStyle(fontSize: 18.0),
+  //         )));
+  //   }
+  // }
+  void signupUser() {
+    var username = usernamecontroller.text;
+    var email = emaildcontroller.text;
+    var password = passwordcontroller.text;
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      // Show an alert if any field is empty
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content: const Text("All fields are required!"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("OK"),
+              )
+            ],
+          );
+        },
+      );
+    } else {
+      // Navigate to another page if the fields are valid
+      Navigator.pushReplacementNamed(context, '/home');
     }
   }
 

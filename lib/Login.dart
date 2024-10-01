@@ -24,11 +24,38 @@ class _LoginpageState extends State<Loginpage> {
 
 
   //sign user in
-  void signuserin() async{
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailcontroller.text,
-      password: passwordcontroller.text,
-    );
+  // void signuserin() async{
+  //   await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //     email: emailcontroller.text,
+  //     password: passwordcontroller.text,
+  //   );
+  // }
+  void signuserin() {
+    var email = emailcontroller.text;
+    var password = passwordcontroller.text;
+    if (email.isEmpty || password.isEmpty) {
+      // Show an alert if any field is empty
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content: const Text("All fields are required!"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("OK"),
+              )
+            ],
+          );
+        },
+      );
+    } else {
+      // Navigate to another page if the fields are valid
+      Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 
   @override

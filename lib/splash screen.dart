@@ -23,7 +23,7 @@ class _State extends State<Splash> {
   }
 
   route() {
-    Navigator.pushReplacementNamed(context, '/home'); // Update to use '/home'
+    Navigator.pushReplacementNamed(context, '/login'); // Update to use '/home'
   }
 
   @override
