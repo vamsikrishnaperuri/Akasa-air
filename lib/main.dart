@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scheme/splash%20screen.dart';
 import 'EditProfile.dart';
+import 'Myprofile.dart';
 import 'chatbot.dart';  // Make sure to define this file properly
 import 'userprofile.dart';  // Make sure to define this file properly
 
@@ -217,9 +218,9 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        toolbarHeight: 60, // Adds height to AppBar for better alignment
-        automaticallyImplyLeading: false, // Remove default back button
-        title: Text(
+        toolbarHeight: 60,
+        automaticallyImplyLeading: false,
+        title: const Text(
           'Profile',
           style: TextStyle(
             fontSize: 28,
@@ -232,12 +233,12 @@ class ProfilePage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0, top: 8.0),
             child: GestureDetector(
               onTap: () {
-                // Add your action for profile click (like opening a profile edit screen)
+                // Action for profile click
               },
               child: CircleAvatar(
                 radius: 25,
                 backgroundImage: const AssetImage('lib/images/user_profilelogog.png'), // Profile image
-                backgroundColor: Colors.orange.shade100, // Fallback color
+                backgroundColor: Colors.orange.shade100,
               ),
             ),
           ),
@@ -249,25 +250,21 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Signed up since May, 14',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(height: 20),
-
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   customTextButton('Change password'),
-
-                  // Navigate to the Edit Profile Page when clicked
                   TextButton(
                     onPressed: () {
-                      // Navigate to EditProfilePage
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => EditProfilePage()),
@@ -280,28 +277,31 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-
+              const SizedBox(height: 20),
               GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  profileOption(Icons.airplane_ticket, 'My bookings'),
-                  profileOption(Icons.person, 'Edit my profile'),
-                  profileOption(Icons.tune, 'My preferences'),
-                  profileOption(Icons.group, 'Saved travellers'),
-                  profileOption(Icons.business, 'Business profile'),
-                  profileOption(Icons.logout, 'Logout'),
+                  profileOption(Icons.airplane_ticket, 'My bookings', () {}),
+                  profileOption(Icons.person, 'My profile', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyProfilePage()),
+                    );
+                  }),
+                  profileOption(Icons.tune, 'My preferences', () {}),
+                  profileOption(Icons.group, 'Saved travellers', () {}),
+                  profileOption(Icons.business, 'Business profile', () {}),
+                  profileOption(Icons.logout, 'Logout', () {}),
                 ],
               ),
-              SizedBox(height: 20),
-
+              const SizedBox(height: 20),
               Divider(thickness: 1, color: Colors.grey.shade300),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Follow us on social media',
                 style: TextStyle(
                   fontSize: 18,
@@ -309,7 +309,7 @@ class ProfilePage extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -321,7 +321,6 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30),
-
               Divider(thickness: 1, color: Colors.grey.shade300),
               SizedBox(height: 10),
               Row(
@@ -357,29 +356,32 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget profileOption(IconData icon, String label) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.orange.shade100,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade200,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: Colors.orange, size: 40),
-          SizedBox(height: 10),
-          Text(
-            label,
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
-        ],
+  Widget profileOption(IconData icon, String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.orange.shade100,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade200,
+              blurRadius: 10,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Colors.orange, size: 40),
+            SizedBox(height: 10),
+            Text(
+              label,
+              style: TextStyle(fontSize: 16, color: Colors.black87),
+            ),
+          ],
+        ),
       ),
     );
   }
