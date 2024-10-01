@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scheme/splash%20screen.dart';
 import 'EditProfile.dart';
+import 'Login.dart';
 import 'Myprofile.dart';
 import 'chatbot.dart';  // Make sure to define this file properly
 import 'userprofile.dart';  // Make sure to define this file properly
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Splash(), // Assuming Splash is already defined
+        '/': (context) => const Splash(),
+        '/login': (context) => Loginpage(),
         '/home': (context) => const HomeScreen(),
         '/anotherPage': (context) => const AnotherPage(),
       },
