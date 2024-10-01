@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scheme/splash%20screen.dart';
@@ -5,7 +7,10 @@ import 'EditProfile.dart';
 import 'Login.dart';
 import 'Myprofile.dart';
 import 'chatbot.dart';  // Make sure to define this file properly
+import 'details_screen.dart';
 import 'userprofile.dart';  // Make sure to define this file properly
+import 'user.dart'; // Ensure you import the user model
+import 'details_screen.dart'; // Import the details screen
 
 void main() => runApp(const MyApp());
 
@@ -405,15 +410,243 @@ class ProfilePage extends StatelessWidget {
 
 
 // More Page
-class MorePage extends StatelessWidget {
+class MorePage extends StatefulWidget {
   const MorePage({super.key});
 
   @override
+  _MorePageState createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
+  // Sample JSON data
+  final List<User> users = [
+    User.fromJson({
+      "_id": "66f9c5bd2c411723103e3e2b",
+      "bookingReference": "BR123456756",
+      "passengerDetails": {
+        "firstName": "Harsha",
+        "lastName": "Bellala",
+        "dateOfBirth": "1990-05-15",
+        "passportNumber": "A12345678",
+        "nationality": "Indian",
+        "contactDetails": {
+          "email": "harshasrikasyap807@gmail.com",
+          "phone": "+919876543210"
+        }
+      },
+      "flightDetails": {
+        "flightNumber": "AK123",
+        "airline": "Akasa Air",
+        "departure": {
+          "airport": "DEL",
+          "city": "Delhi",
+          "country": "India",
+          "dateTime": "2024-10-10T14:30:00"
+        },
+        "arrival": {
+          "airport": "BOM",
+          "city": "Mumbai",
+          "country": "India",
+          "dateTime": "2024-10-10T17:30:00"
+        },
+        "flightClass": "Economy",
+        "seatNumber": "12A"
+      },
+      "bookingStatus": "Confirmed",
+      "paymentDetails": {
+        "amount": 5000.0,
+        "currency": "INR",
+        "paymentMethod": "Credit Card",
+        "paymentStatus": "Paid",
+        "paymentDate": "2024-09-01"
+      },
+      "specialRequests": "Vegetarian meal",
+      "loyaltyProgram": {
+        "programName": "Akasa Air Miles",
+        "membershipNumber": "AA12345",
+        "pointsEarned": 100
+      },
+      "createdAt": "2024-09-30",
+      "updatedAt": "2024-09-30"
+    }),
+    User.fromJson({
+      "_id": "66f9c5bd2c411723103e3e2c",
+      "bookingReference": "BR123456757",
+      "passengerDetails": {
+        "firstName": "Aditi",
+        "lastName": "Sharma",
+        "dateOfBirth": "1985-08-22",
+        "passportNumber": "B98765432",
+        "nationality": "Indian",
+        "contactDetails": {
+          "email": "aditi.sharma@example.com",
+          "phone": "+919876543211"
+        }
+      },
+      "flightDetails": {
+        "flightNumber": "AK124",
+        "airline": "Akasa Air",
+        "departure": {
+          "airport": "DEL",
+          "city": "Delhi",
+          "country": "India",
+          "dateTime": "2024-10-12T10:00:00"
+        },
+        "arrival": {
+          "airport": "BOM",
+          "city": "Mumbai",
+          "country": "India",
+          "dateTime": "2024-10-12T12:30:00"
+        },
+        "flightClass": "Business",
+        "seatNumber": "1A"
+      },
+      "bookingStatus": "Confirmed",
+      "paymentDetails": {
+        "amount": 15000.0,
+        "currency": "INR",
+        "paymentMethod": "Debit Card",
+        "paymentStatus": "Paid",
+        "paymentDate": "2024-09-15"
+      },
+      "specialRequests": "Gluten-free meal",
+      "loyaltyProgram": {
+        "programName": "Akasa Air Miles",
+        "membershipNumber": "AA12346",
+        "pointsEarned": 200
+      },
+      "createdAt": "2024-09-30",
+      "updatedAt": "2024-09-30"
+    }),
+    User.fromJson({
+      "_id": "66f9c5bd2c411723103e3e2d",
+      "bookingReference": "BR123456758",
+      "passengerDetails": {
+        "firstName": "Ravi",
+        "lastName": "Kumar",
+        "dateOfBirth": "1992-11-05",
+        "passportNumber": "C23456789",
+        "nationality": "Indian",
+        "contactDetails": {
+          "email": "ravi.kumar@example.com",
+          "phone": "+919876543212"
+        }
+      },
+      "flightDetails": {
+        "flightNumber": "AK125",
+        "airline": "Akasa Air",
+        "departure": {
+          "airport": "DEL",
+          "city": "Delhi",
+          "country": "India",
+          "dateTime": "2024-10-15T18:00:00"
+        },
+        "arrival": {
+          "airport": "BOM",
+          "city": "Mumbai",
+          "country": "India",
+          "dateTime": "2024-10-15T20:30:00"
+        },
+        "flightClass": "Economy",
+        "seatNumber": "12B"
+      },
+      "bookingStatus": "Pending",
+      "paymentDetails": {
+        "amount": 5000.0,
+        "currency": "INR",
+        "paymentMethod": "Credit Card",
+        "paymentStatus": "Pending",
+        "paymentDate": "2024-09-20"
+      },
+      "specialRequests": "Window seat",
+      "loyaltyProgram": {
+        "programName": "Akasa Air Miles",
+        "membershipNumber": "AA12347",
+        "pointsEarned": 150
+      },
+      "createdAt": "2024-09-30",
+      "updatedAt": "2024-09-30"
+    }),
+    User.fromJson({
+      "_id": "66f9c5bd2c411723103e3e2e",
+      "bookingReference": "BR123456759",
+      "passengerDetails": {
+        "firstName": "Priya",
+        "lastName": "Singh",
+        "dateOfBirth": "1995-01-12",
+        "passportNumber": "D34567890",
+        "nationality": "Indian",
+        "contactDetails": {
+          "email": "priya.singh@example.com",
+          "phone": "+919876543213"
+        }
+      },
+      "flightDetails": {
+        "flightNumber": "AK126",
+        "airline": "Akasa Air",
+        "departure": {
+          "airport": "DEL",
+          "city": "Delhi",
+          "country": "India",
+          "dateTime": "2024-10-20T09:00:00"
+        },
+        "arrival": {
+          "airport": "BOM",
+          "city": "Mumbai",
+          "country": "India",
+          "dateTime": "2024-10-20T11:30:00"
+        },
+        "flightClass": "Economy",
+        "seatNumber": "15C"
+      },
+      "bookingStatus": "Cancelled",
+      "paymentDetails": {
+        "amount": 5000.0,
+        "currency": "INR",
+        "paymentMethod": "Credit Card",
+        "paymentStatus": "Refunded",
+        "paymentDate": "2024-09-22"
+      },
+      "specialRequests": "No special meal",
+      "loyaltyProgram": {
+        "programName": "Akasa Air Miles",
+        "membershipNumber": "AA12348",
+        "pointsEarned": 80
+      },
+      "createdAt": "2024-09-30",
+      "updatedAt": "2024-09-30"
+    }),
+    // Add more users as needed
+  ];
+
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'More Options Page Content',
-        style: TextStyle(fontSize: 24),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Bookings'),
+      ),
+      body: ListView.builder(
+        itemCount: users.length,
+        itemBuilder: (context, index) {
+          final user = users[index];
+          return Card(
+            margin: EdgeInsets.all(8.0),
+            child: ListTile(
+              title: Text('${user.passengerDetails.firstName} ${user.passengerDetails.lastName}'),
+              subtitle: Text('Booking Reference: ${user.bookingReference}'),
+              trailing: Text(user.bookingStatus),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsScreen(user: user),
+                  ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }
