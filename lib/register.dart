@@ -88,7 +88,7 @@ class _State extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -106,7 +106,7 @@ class _State extends State<SignupScreen> {
                   //welcome
                   const Text("Sign Up",
                     style: TextStyle(
-                      color: Colors.purpleAccent,
+                      color: Color(0xFF6F2596),
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
                     ),

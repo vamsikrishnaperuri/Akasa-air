@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scheme/splash%20screen.dart';
 import 'EditProfile.dart';
@@ -11,6 +12,7 @@ import 'details_screen.dart';
 import 'userprofile.dart';  // Make sure to define this file properly
 import 'user.dart'; // Ensure you import the user model
 import 'details_screen.dart'; // Import the details screen
+import 'package:http/http.dart' as http;
 
 void main() => runApp(const MyApp());
 
@@ -145,29 +147,67 @@ class HomeContent extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
+          // Chip for current city
           Container(
-            color: const Color(0xFFFF6600), // Orange
-            padding: const EdgeInsets.all(16.0),
-            child: const Column(
-              children: [
-                Text(
-                  'Exclusive flight deals on AkasaAir.com and App',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+            margin: const EdgeInsets.only(bottom: 16.0),
+            child: const Chip(
+              label: Text(
+                'Current City : Delhi',
+                style: TextStyle(
+                  color: Colors.white, // Text color
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Login now and get up to 20% off. Use code: FLYMORE',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+              ),
+              backgroundColor: Color(0xFFFF6600), // Chip color (Purple)
             ),
+          ),
+
+          // Image with text overlay
+          Stack(
+            children: [
+              // Background image
+              Container(
+                width: double.infinity,
+                height: 150, // Adjust height as needed
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: AssetImage('lib/images/splash_web.jpg'), // Replace with your image path
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              // Overlay with text
+              Positioned(
+                left: 16, // Adjust position as needed
+                top: 16, // Adjust position as needed
+                child: Container(
+                  color: Colors.black.withOpacity(0.5), // Semi-transparent background for contrast
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Exclusive flight deals\n on AkasaAir.com\n and App',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      // Text(
+                      //   'Login now and get up to 20% off. Use code: FLYMORE',
+                      //   style: TextStyle(
+                      //     fontSize: 16,
+                      //     color: Colors.white,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 20),
           Container(
@@ -196,7 +236,98 @@ class HomeContent extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 20),
+          // Add more UI components here as needed
+          _buildOptionButtons(),
+          const SizedBox(height: 20),
+          _buildRecentSearches(),
         ],
+      ),
+    );
+  }
+
+  // Method to build additional option buttons
+  Widget _buildOptionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildButton('Check-in', Icons.check_circle),
+        _buildButton('Flight Status', Icons.flight_takeoff),
+        _buildButton('Manage', Icons.manage_accounts),
+      ],
+    );
+  }
+
+  // Helper method to create individual buttons
+  Widget _buildButton(String label, IconData icon) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white, // White background
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 6,
+            offset: Offset(0, 3), // Shadow for depth effect
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: const Color(0xFF6F2596), size: 28), // Purple Icon
+          SizedBox(height: 5),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Method to build recent searches section
+  Widget _buildRecentSearches() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Your recent searches',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildRecentSearchItem('BOM', 'DEL'),
+            _buildRecentSearchItem('BOM', 'HYD'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Helper method to create recent search items
+  Widget _buildRecentSearchItem(String from, String to) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0F0F0), // Light Grey background
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        '$from → $to',
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+        ),
       ),
     );
   }
@@ -212,7 +343,6 @@ class BookingPage extends StatelessWidget {
   }
 
 }
-
 // Profile Page
 
 class ProfilePage extends StatelessWidget {
@@ -411,236 +541,68 @@ class ProfilePage extends StatelessWidget {
 
 // More Page
 class MorePage extends StatefulWidget {
-  const MorePage({super.key});
-
   @override
   _MorePageState createState() => _MorePageState();
 }
 
 class _MorePageState extends State<MorePage> {
-  // Sample JSON data
-  final List<User> users = [
-    User.fromJson({
-      "_id": "66f9c5bd2c411723103e3e2b",
-      "bookingReference": "BR123456756",
-      "passengerDetails": {
-        "firstName": "Harsha",
-        "lastName": "Bellala",
-        "dateOfBirth": "1990-05-15",
-        "passportNumber": "A12345678",
-        "nationality": "Indian",
-        "contactDetails": {
-          "email": "harshasrikasyap807@gmail.com",
-          "phone": "+919876543210"
-        }
-      },
-      "flightDetails": {
-        "flightNumber": "AK123",
-        "airline": "Akasa Air",
-        "departure": {
-          "airport": "DEL",
-          "city": "Delhi",
-          "country": "India",
-          "dateTime": "2024-10-10T14:30:00"
-        },
-        "arrival": {
-          "airport": "BOM",
-          "city": "Mumbai",
-          "country": "India",
-          "dateTime": "2024-10-10T17:30:00"
-        },
-        "flightClass": "Economy",
-        "seatNumber": "12A"
-      },
-      "bookingStatus": "Confirmed",
-      "paymentDetails": {
-        "amount": 5000.0,
-        "currency": "INR",
-        "paymentMethod": "Credit Card",
-        "paymentStatus": "Paid",
-        "paymentDate": "2024-09-01"
-      },
-      "specialRequests": "Vegetarian meal",
-      "loyaltyProgram": {
-        "programName": "Akasa Air Miles",
-        "membershipNumber": "AA12345",
-        "pointsEarned": 100
-      },
-      "createdAt": "2024-09-30",
-      "updatedAt": "2024-09-30"
-    }),
-    User.fromJson({
-      "_id": "66f9c5bd2c411723103e3e2c",
-      "bookingReference": "BR123456757",
-      "passengerDetails": {
-        "firstName": "Aditi",
-        "lastName": "Sharma",
-        "dateOfBirth": "1985-08-22",
-        "passportNumber": "B98765432",
-        "nationality": "Indian",
-        "contactDetails": {
-          "email": "aditi.sharma@example.com",
-          "phone": "+919876543211"
-        }
-      },
-      "flightDetails": {
-        "flightNumber": "AK124",
-        "airline": "Akasa Air",
-        "departure": {
-          "airport": "DEL",
-          "city": "Delhi",
-          "country": "India",
-          "dateTime": "2024-10-12T10:00:00"
-        },
-        "arrival": {
-          "airport": "BOM",
-          "city": "Mumbai",
-          "country": "India",
-          "dateTime": "2024-10-12T12:30:00"
-        },
-        "flightClass": "Business",
-        "seatNumber": "1A"
-      },
-      "bookingStatus": "Confirmed",
-      "paymentDetails": {
-        "amount": 15000.0,
-        "currency": "INR",
-        "paymentMethod": "Debit Card",
-        "paymentStatus": "Paid",
-        "paymentDate": "2024-09-15"
-      },
-      "specialRequests": "Gluten-free meal",
-      "loyaltyProgram": {
-        "programName": "Akasa Air Miles",
-        "membershipNumber": "AA12346",
-        "pointsEarned": 200
-      },
-      "createdAt": "2024-09-30",
-      "updatedAt": "2024-09-30"
-    }),
-    User.fromJson({
-      "_id": "66f9c5bd2c411723103e3e2d",
-      "bookingReference": "BR123456758",
-      "passengerDetails": {
-        "firstName": "Ravi",
-        "lastName": "Kumar",
-        "dateOfBirth": "1992-11-05",
-        "passportNumber": "C23456789",
-        "nationality": "Indian",
-        "contactDetails": {
-          "email": "ravi.kumar@example.com",
-          "phone": "+919876543212"
-        }
-      },
-      "flightDetails": {
-        "flightNumber": "AK125",
-        "airline": "Akasa Air",
-        "departure": {
-          "airport": "DEL",
-          "city": "Delhi",
-          "country": "India",
-          "dateTime": "2024-10-15T18:00:00"
-        },
-        "arrival": {
-          "airport": "BOM",
-          "city": "Mumbai",
-          "country": "India",
-          "dateTime": "2024-10-15T20:30:00"
-        },
-        "flightClass": "Economy",
-        "seatNumber": "12B"
-      },
-      "bookingStatus": "Pending",
-      "paymentDetails": {
-        "amount": 5000.0,
-        "currency": "INR",
-        "paymentMethod": "Credit Card",
-        "paymentStatus": "Pending",
-        "paymentDate": "2024-09-20"
-      },
-      "specialRequests": "Window seat",
-      "loyaltyProgram": {
-        "programName": "Akasa Air Miles",
-        "membershipNumber": "AA12347",
-        "pointsEarned": 150
-      },
-      "createdAt": "2024-09-30",
-      "updatedAt": "2024-09-30"
-    }),
-    User.fromJson({
-      "_id": "66f9c5bd2c411723103e3e2e",
-      "bookingReference": "BR123456759",
-      "passengerDetails": {
-        "firstName": "Priya",
-        "lastName": "Singh",
-        "dateOfBirth": "1995-01-12",
-        "passportNumber": "D34567890",
-        "nationality": "Indian",
-        "contactDetails": {
-          "email": "priya.singh@example.com",
-          "phone": "+919876543213"
-        }
-      },
-      "flightDetails": {
-        "flightNumber": "AK126",
-        "airline": "Akasa Air",
-        "departure": {
-          "airport": "DEL",
-          "city": "Delhi",
-          "country": "India",
-          "dateTime": "2024-10-20T09:00:00"
-        },
-        "arrival": {
-          "airport": "BOM",
-          "city": "Mumbai",
-          "country": "India",
-          "dateTime": "2024-10-20T11:30:00"
-        },
-        "flightClass": "Economy",
-        "seatNumber": "15C"
-      },
-      "bookingStatus": "Cancelled",
-      "paymentDetails": {
-        "amount": 5000.0,
-        "currency": "INR",
-        "paymentMethod": "Credit Card",
-        "paymentStatus": "Refunded",
-        "paymentDate": "2024-09-22"
-      },
-      "specialRequests": "No special meal",
-      "loyaltyProgram": {
-        "programName": "Akasa Air Miles",
-        "membershipNumber": "AA12348",
-        "pointsEarned": 80
-      },
-      "createdAt": "2024-09-30",
-      "updatedAt": "2024-09-30"
-    }),
-    // Add more users as needed
-  ];
+  List<Booking> bookings = [];
+  bool _isLoading = true;
 
+  Future<void> fetchBookings() async {
+    try {
+      final response = await http.get(Uri.parse('http://ec2-13-60-174-218.eu-north-1.compute.amazonaws.com/bookings/?email=harshasrikasyap807@gmail.com'));
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = json.decode(response.body);
+        setState(() {
+          bookings = jsonData.map((item) => Booking.fromJson(item)).toList();
+          _isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to load bookings');
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error fetching bookings: $e')));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBookings();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Bookings'),
+        title: Text("Your Bookings"),
+        backgroundColor: Color(0xFFFF6600), // Primary Orange Color
       ),
-      body: ListView.builder(
-        itemCount: users.length,
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : bookings.isEmpty
+          ? const Center(child: Text("No bookings found"))
+          : ListView.builder(
+        itemCount: bookings.length,
         itemBuilder: (context, index) {
-          final user = users[index];
           return Card(
             margin: EdgeInsets.all(8.0),
+            elevation: 4,
             child: ListTile(
-              title: Text('${user.passengerDetails.firstName} ${user.passengerDetails.lastName}'),
-              subtitle: Text('Booking Reference: ${user.bookingReference}'),
-              trailing: Text(user.bookingStatus),
+              title: Text('Booking: ${bookings[index].bookingReference}', style: TextStyle(color: Color(0xFF000000))),
+              subtitle: Text(
+                'Passenger: ${bookings[index].passengerDetails.firstName} | Flight: ${bookings[index].flightDetails.flightNumber} | Status: ${bookings[index].bookingStatus}',
+                style: TextStyle(color: Color(0xFF666666)),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailsScreen(user: user),
+                    builder: (context) => DetailScreen(booking: bookings[index]),
                   ),
                 );
               },
@@ -651,6 +613,7 @@ class _MorePageState extends State<MorePage> {
     );
   }
 }
+
 
 // The page you navigate to (AnotherPage)
 class AnotherPage extends StatelessWidget {

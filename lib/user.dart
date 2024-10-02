@@ -1,41 +1,32 @@
-// user.dart
-class User {
-  final String id;
+class Booking {
   final String bookingReference;
   final PassengerDetails passengerDetails;
   final FlightDetails flightDetails;
   final String bookingStatus;
   final PaymentDetails paymentDetails;
-  final String specialRequests;
-  final LoyaltyProgram loyaltyProgram;
-  final String createdAt;
-  final String updatedAt;
+  final String? specialRequests;
+  final LoyaltyProgram? loyaltyProgram;
 
-  User({
-    required this.id,
+  Booking({
     required this.bookingReference,
     required this.passengerDetails,
     required this.flightDetails,
     required this.bookingStatus,
     required this.paymentDetails,
-    required this.specialRequests,
-    required this.loyaltyProgram,
-    required this.createdAt,
-    required this.updatedAt,
+    this.specialRequests,
+    this.loyaltyProgram,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['_id'],
+  factory Booking.fromJson(Map<String, dynamic> json) {
+    return Booking(
       bookingReference: json['bookingReference'],
       passengerDetails: PassengerDetails.fromJson(json['passengerDetails']),
       flightDetails: FlightDetails.fromJson(json['flightDetails']),
       bookingStatus: json['bookingStatus'],
       paymentDetails: PaymentDetails.fromJson(json['paymentDetails']),
       specialRequests: json['specialRequests'],
-      loyaltyProgram: LoyaltyProgram.fromJson(json['loyaltyProgram']),
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
+      loyaltyProgram:
+      json['loyaltyProgram'] != null ? LoyaltyProgram.fromJson(json['loyaltyProgram']) : null,
     );
   }
 }
@@ -43,166 +34,108 @@ class User {
 class PassengerDetails {
   final String firstName;
   final String lastName;
-  final String dateOfBirth;
-  final String passportNumber;
-  final String nationality;
-  final ContactDetails contactDetails;
+
+// Removed dateOfBirth and contact details for simplification
 
   PassengerDetails({
     required this.firstName,
     required this.lastName,
-    required this.dateOfBirth,
-    required this.passportNumber,
-    required this.nationality,
-    required this.contactDetails,
+    // Initialize dateOfBirth and contact details if needed
+//   required this.dateOfBirth,
+//   required this.contactDetails,
   });
 
   factory PassengerDetails.fromJson(Map<String, dynamic> json) {
     return PassengerDetails(
       firstName: json['firstName'],
       lastName: json['lastName'],
-      dateOfBirth: json['dateOfBirth'],
-      passportNumber: json['passportNumber'],
-      nationality: json['nationality'],
-      contactDetails: ContactDetails.fromJson(json['contactDetails']),
-    );
-  }
-}
-
-class ContactDetails {
-  final String email;
-  final String phone;
-
-  ContactDetails({
-    required this.email,
-    required this.phone,
-  });
-
-  factory ContactDetails.fromJson(Map<String, dynamic> json) {
-    return ContactDetails(
-      email: json['email'],
-      phone: json['phone'],
+      // Initialize dateOfBirth and contact details if needed
+//     dateOfBirth : json['dateOfBirth'],
+//     contactDetails : ContactDetails.fromJson(json['contactDetails']),
     );
   }
 }
 
 class FlightDetails {
   final String flightNumber;
-  final String airline;
-  final Departure departure;
-  final Arrival arrival;
-  final String flightClass;
-  final String seatNumber;
+  final Location departure;
+  final Location arrival;
 
   FlightDetails({
     required this.flightNumber,
-    required this.airline,
+// Removed flightClass and seatNumber for simplification
     required this.departure,
     required this.arrival,
-    required this.flightClass,
-    required this.seatNumber,
+// Initialize flightClass and seatNumber if needed
+// required this.flightClass,
+// required this.seatNumber,
   });
 
   factory FlightDetails.fromJson(Map<String, dynamic> json) {
     return FlightDetails(
-      flightNumber: json['flightNumber'],
-      airline: json['airline'],
-      departure: Departure.fromJson(json['departure']),
-      arrival: Arrival.fromJson(json['arrival']),
-      flightClass: json['flightClass'],
-      seatNumber: json['seatNumber'],
+      flightNumber : json['flightNumber'],
+      departure : Location.fromJson(json['departure']),
+      arrival : Location.fromJson(json['arrival']),
+// Initialize flightClass and seatNumber if needed
+// flightClass : json['flightClass'],
+// seatNumber : json['seatNumber'],
     );
   }
 }
 
-class Departure {
-  final String airport;
+class Location {
   final String city;
-  final String country;
-  final String dateTime;
 
-  Departure({
-    required this.airport,
+  Location({
     required this.city,
-    required this.country,
-    required this.dateTime,
+// Removed airport, country, and dateTime for simplification
   });
 
-  factory Departure.fromJson(Map<String, dynamic> json) {
-    return Departure(
-      airport: json['airport'],
-      city: json['city'],
-      country: json['country'],
-      dateTime: json['dateTime'],
-    );
-  }
-}
-
-class Arrival {
-  final String airport;
-  final String city;
-  final String country;
-  final String dateTime;
-
-  Arrival({
-    required this.airport,
-    required this.city,
-    required this.country,
-    required this.dateTime,
-  });
-
-  factory Arrival.fromJson(Map<String, dynamic> json) {
-    return Arrival(
-      airport: json['airport'],
-      city: json['city'],
-      country: json['country'],
-      dateTime: json['dateTime'],
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+      city : json['city'],
+// Initialize airport, country, and dateTime if needed
+// airport : json['airport'],
+// country : json['country'],
+// dateTime : json['dateTime'],
     );
   }
 }
 
 class PaymentDetails {
-  final double amount;
+// Removed paymentMethod for simplification
+  final String amount;
   final String currency;
-  final String paymentMethod;
   final String paymentStatus;
-  final String paymentDate;
 
   PaymentDetails({
     required this.amount,
     required this.currency,
-    required this.paymentMethod,
+// Initialize paymentMethod if needed
     required this.paymentStatus,
-    required this.paymentDate,
   });
 
   factory PaymentDetails.fromJson(Map<String, dynamic> json) {
     return PaymentDetails(
-      amount: json['amount'],
-      currency: json['currency'],
-      paymentMethod: json['paymentMethod'],
-      paymentStatus: json['paymentStatus'],
-      paymentDate: json['paymentDate'],
+      amount : json['amount'],
+      currency : json['currency'],
+      paymentStatus : json['paymentStatus'],
     );
   }
 }
 
 class LoyaltyProgram {
   final String programName;
-  final String membershipNumber;
-  final int pointsEarned;
 
   LoyaltyProgram({
     required this.programName,
-    required this.membershipNumber,
-    required this.pointsEarned,
+// Removed membershipNumber and pointsEarned for simplification
   });
 
   factory LoyaltyProgram.fromJson(Map<String, dynamic> json) {
     return LoyaltyProgram(
-      programName: json['programName'],
-      membershipNumber: json['membershipNumber'],
-      pointsEarned: json['pointsEarned'],
+      programName : json['programName'],
+// Initialize membershipNumber and pointsEarned if needed
     );
   }
 }

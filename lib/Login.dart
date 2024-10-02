@@ -17,10 +17,14 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
-  // String email="",password="";
-  final TextEditingController emailcontroller = TextEditingController();
+  // // String email="",password="";
+  // final TextEditingController emailcontroller = TextEditingController();
+  //
+  // final TextEditingController passwordcontroller = TextEditingController();
 
-  final TextEditingController passwordcontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController(text: "harshasrikasyap807@gmail.com");
+
+  final TextEditingController passwordcontroller = TextEditingController(text: "12345678");
 
 
   //sign user in
@@ -63,7 +67,7 @@ class _LoginpageState extends State<Loginpage> {
     // TODO: implement build
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -79,9 +83,9 @@ class _LoginpageState extends State<Loginpage> {
                   ),
 
                   //welcome
-                  Text("Sign In",
+                  const Text("Sign In",
                     style: TextStyle(
-                      color: Colors.amber[900],
+                      color: Color(0xFFFF6600),
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
                     ),

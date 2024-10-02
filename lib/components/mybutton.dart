@@ -24,7 +24,7 @@ class Mybutton extends StatelessWidget {
     return ElevatedButton(
       style: buttonPrimary,
       onPressed:(){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
       },
       child: const Text("Sign In",
         style: TextStyle(color: Colors.white),),
