@@ -338,10 +338,27 @@ class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/images/screen2.jpeg'), // Update the path to your image
+            fit: BoxFit.cover, // Adjust the fit as necessary (cover, contain, etc.)
+          ),
+        ),
+        child: const Center(
+          child: Text(
+            'Booking Page',
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.white, // Change the color to ensure visibility
+            ),
+          ),
+        ),
+      ),
+    );
   }
-
 }
 // Profile Page
 
