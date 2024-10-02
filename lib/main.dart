@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFFF6600), // Orange
         title:  _selectedIndex == 2 // Only show title on Profile Page
             ? const Text('User Profile')
