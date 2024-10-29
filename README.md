@@ -1,10 +1,17 @@
 We developed an AI-powered chatbot designed to enhance and streamline the airline experience with cutting-edge features such as:
+
 ✈️ Flight Management: Book, cancel, or modify flights through the chatbot.
+
 🎯 Personalized Recommendations: Tailored flight and service suggestions based on user preferences.
+
 🌐 Real-Time Data Integration: Get live updates on flight availability and pricing.
+
 🌍 Multi-Language Support: Breaking language barriers for seamless interactions.
+
 Challenges we tackled:
+
 🔧 Integrating AI with existing airline systems.
+
 📊 Creating custom datasets for flight schedules, seat preferences, and meal selections.
 
 These are the pictures of the above application:
