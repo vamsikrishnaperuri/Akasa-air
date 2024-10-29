@@ -8,6 +8,6 @@ Challenges we tackled:
 📊 Creating custom datasets for flight schedules, seat preferences, and meal selections.
 
 These are the pictures of the above application:
-![i0](https://github.com/user-attachments/assets/4dcabf15-9abd-4166-801c-a872773d772d=250x250)
+![i0](https://github.com/user-attachments/assets/4dcabf15-9abd-4166-801c-a872773d772d){: width="50%"}
 ![i1](https://github.com/user-attachments/assets/24d3c3c8-97f8-44c4-81cc-058a2bf8422d)
 ![i3](https://github.com/user-attachments/assets/5e523db4-95b7-4c71-ac5b-7f648ee74e21)
