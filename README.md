@@ -9,6 +9,8 @@ Challenges we tackled:
 
 These are the pictures of the above application:
 ![i0](https://github.com/user-attachments/assets/4dcabf15-9abd-4166-801c-a872773d772d){: width="50%"}
-<img src="https://github.com/user-attachments/assets/4dcabf15-9abd-4166-801c-a872773d772d" width="600">
+<img src="https://github.com/user-attachments/assets/4dcabf15-9abd-4166-801c-a872773d772d" width="200">
+<img src="https://github.com/user-attachments/assets/24d3c3c8-97f8-44c4-81cc-058a2bf8422d" width="200">
+<img src="https://github.com/user-attachments/assets/5e523db4-95b7-4c71-ac5b-7f648ee74e21" width="200">
 ![i1](https://github.com/user-attachments/assets/24d3c3c8-97f8-44c4-81cc-058a2bf8422d)
 ![i3](https://github.com/user-attachments/assets/5e523db4-95b7-4c71-ac5b-7f648ee74e21)
